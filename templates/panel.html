@@ -13,7 +13,7 @@
     	<nav class="navbar navbar-inverse navbar-fixed-top">
         	<div class="container">
             	<div class="navbar-header">
-                	<a class="navbar-brand"> <span class="glyphicon glyphicon-console glyphicon-align-center"></span> Control Panel </a>
+                	<a class="navbar-brand"> <span class="glyphicon glyphicon-console glyphicon-align-center"></span> Pannello di controllo </a>
             	</div>
         	</div>
     	</nav>
@@ -23,21 +23,21 @@
                 	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">                   
                     	{% if pins[7].status == true %}
                         	<div>
-                                <a href="/7/off" class="btn btn-block btn-lg btn-danger" role="button"><i class="fas fa-toggle-on"></i> Turn off GPIO 7</a>
+                                <a href="/7/off" class="btn btn-block btn-lg btn-danger" role="button"><i class="fas fa-toggle-on"></i> Turn off GPIO 7 OnstepX</a>
                         	</div>
                     	{% else %}
                         	<div>
-                            	<a href="/7/on" class="btn btn-block btn-lg btn-success" role="button"><i class="fas fa-toggle-off"></i> Turn on GPIO 7 </a>
+                            	<a href="/7/on" class="btn btn-block btn-lg btn-success" role="button"><i class="fas fa-toggle-off"></i> Turn on GPIO 7 OnstepX</a>
                         	</div>
                     	{% endif %}
 	               
                     	{% if pins[11].status == true %}
                         	<div>
-                            	<a href="/11/off" class="btn btn-block btn-lg btn-danger" role="button"><i class="fas fa-toggle-on"></i> Turn off GPIO 11 </a>
+                            	<a href="/11/off" class="btn btn-block btn-lg btn-danger" role="button"><i class="fas fa-toggle-on"></i> Turn off GPIO 11 CCD</a>
                         	</div>
                     	{% else %}
                         	<div>
-                           		<a href="/11/on" class="btn btn-block btn-lg btn-success" role="button"><i class="fas fa-toggle-off"></i> Turn on GPIO 11 </a>
+                           		<a href="/11/on" class="btn btn-block btn-lg btn-success" role="button"><i class="fas fa-toggle-off"></i> Turn on GPIO 11 CCD</a>
                         	</div>
                     	{% endif %}
 
