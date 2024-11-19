@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import OPi.GPIO as GPIO
+import OPi5 as GPIO
 import os
 import threading
 import urllib3
@@ -12,7 +12,7 @@ DEFAULT_LISTEN_ADDR = '0.0.0.0'
 DEFAULT_LISTEN_PORT = 8080
 
 # SETUP THE Orange PI PC GPIO's, SEE: https://opi-gpio.readthedocs.io/en/latest/
-GPIO.setboard(GPIO.PC2)
+#GPIO.setboard(GPIO.PC2)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
