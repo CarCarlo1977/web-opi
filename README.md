@@ -18,7 +18,7 @@ Web-OPI is a mini webserver to control your Orange PI GPIOs from wherever you ar
 Install the dependencies and start the server on your Orange PI.
 
 ```sh
-$ git clone https://github.com/arthur-bryan/web-opi
+$ git clone https://github.com/CarCarlo1977/web-opi
 $ cd web-opi
 $ chmod +x setup.sh
 $ sudo ./setup.sh
