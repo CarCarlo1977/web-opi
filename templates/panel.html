@@ -22,11 +22,24 @@
 			<div id="jumb1" class="jumbotron">
 				<div class ="row">
 
+										<!-- Add a button for restarting the system -->
 					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-						<a href="/" class="btn btn-block btn-lg btn-danger" role="button">
-							<i class="fas fa-toggle-on"></i> Reload page
-						</a>
+						<form action="{{ url_for('restart') }}" method="POST">
+							<button type="submit" class="btn btn-warning btn-block btn-lg"  onclick="return confirm('Are you sure you want restart?');">
+								<i class="fas fa-redo"></i> Restart System
+							</button>
+						</form>
 					</div>
+
+					<!-- Add a button for shutting down the system -->
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<form action="{{ url_for('shutdown') }}" method="POST">
+							<button type="submit" class="btn btn-danger btn-block btn-lg"  onclick="return confirm('Are you sure you want shutdown?');">
+								<i class="fas fa-power-off"></i> Shutdown System
+							</button>
+						</form>
+					</div>
+
 
 				</div>
 				<div class="row">
@@ -68,7 +81,7 @@
 					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 						<div id="jumb2" class="jumbotron">
 							<h2> Status </h2>
-							<p> Temperature:
+							<p> CPU Temperature:
 								<strong> {{ temp }} </strong> 
 							</p>
 						

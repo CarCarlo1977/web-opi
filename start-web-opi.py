@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, session
 import wiringpi
 import os
 import threading
@@ -7,6 +7,10 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 app = Flask(__name__)
+
+# Set a secret key for session management. You can use os.urandom to generate a random secret key.
+app.config['SECRET_KEY'] = os.urandom(24)  # Generates a random 24-byte key
+
 
 DEFAULT_LISTEN_ADDR = '0.0.0.0'
 DEFAULT_LISTEN_PORT = 8081
@@ -86,6 +90,35 @@ def panel():
     }
     return render_template('panel.html', **data_for_template)
 
+@app.route("/shutdown", methods=["POST"])
+def shutdown():
+    """Route to shutdown the system."""
+    if 'shutdown_flag' in session and session['shutdown_flag']:
+        # If the flag is already set, do nothing (prevent repeated shutdown)
+        return redirect(url_for('panel'))
+
+    session['shutdown_flag'] = True  # Set the flag so the shutdown doesn't happen again if refreshed
+    os.system("sudo shutdown now")  # Executes the shutdown command
+    return redirect(url_for('panel'))  # Redirect back to the panel or show a shutdown page
+
+@app.route("/restart", methods=["POST"])
+def restart():
+    """Route to restart the system."""
+    if 'restart_flag' in session and session['restart_flag']:
+        # If the flag is already set, do nothing (prevent repeated restart)
+        return redirect(url_for('panel'))
+
+    session['restart_flag'] = True  # Set the flag so the restart doesn't happen again if refreshed
+    os.system("sudo reboot")  # Executes the reboot command
+    return redirect(url_for('panel'))  # Redirect back to the panel or show a restart page
+
+# Clear the session flags after the operation is complete (to prevent accidental repeated shutdown or restart)
+@app.before_request
+def clear_flags():
+    if 'shutdown_flag' in session:
+        session.pop('shutdown_flag')
+    if 'restart_flag' in session:
+        session.pop('restart_flag')
 
 if __name__ == "__main__":
     app.run(host=DEFAULT_LISTEN_ADDR, port=DEFAULT_LISTEN_PORT)
