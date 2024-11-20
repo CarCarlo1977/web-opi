@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import OPi5 as GPIO
+import wiringpi
 import os
 import threading
 import urllib3
@@ -10,32 +10,29 @@ app = Flask(__name__)
 
 DEFAULT_LISTEN_ADDR = '0.0.0.0'
 DEFAULT_LISTEN_PORT = 8080
-
-# SETUP THE Orange PI PC GPIO's, SEE: https://opi-gpio.readthedocs.io/en/latest/
-#GPIO.setboard(GPIO.PC2)
-GPIO.setmode(GPIO.BOARD)
-GPIO.setwarnings(False)
+wiringpi.wiringPiSetup()
 
 GPIOs = {
-    7: {'nome': 'GPIO 7', 'status': GPIO.LOW},
-    11: {'nome': 'GPIO 11', 'status': GPIO.LOW},
-    13: {'nome': 'GPIO 13', 'status': GPIO.LOW},
-    15: {'nome': 'GPIO 15', 'status': GPIO.LOW},
-    22: {'nome': 'GPIO 22', 'status': GPIO.LOW}
+    1: {'nome': 'GPIO 1', 'status': wiringpi.LOW},
+    2: {'nome': 'GPIO 2', 'status': wiringpi.LOW},
+    11: {'nome': 'GPIO 11', 'status': wiringpi.LOW},
+    13: {'nome': 'GPIO 13', 'status': wiringpi.LOW},
+    15: {'nome': 'GPIO 15', 'status': wiringpi.LOW},
+    22: {'nome': 'GPIO 22', 'status': wiringpi.LOW}
 }
 
 temp = float(open('/sys/class/thermal/thermal_zone0/temp').read())
 temp = "{0:0.1f} °C".format(temp / 1000)
 
 for pin in GPIOs:
-    GPIO.setup(pin, GPIO.OUT)  # set the pins to output mode.
-
+    # set the pins to output mode.
+    wiringpi.pinMode(pin, wiringpi.OUTPUT) ;
 
 @app.route("/")
 def control_panel():
     """Route that render the main template with current GPIOs status."""
     for GPIO_number in GPIOs:
-        GPIOs[GPIO_number]['status'] = GPIO.input(GPIO_number)
+        GPIOs[GPIO_number]['status'] = wiringpi.digitalRead(GPIO_number)
     data_for_template = {
         'pins': GPIOs,
         'temp': temp
@@ -52,7 +49,7 @@ def change_gpio(gpio_num, value):
     """
     if gpio_num in list(GPIOs.keys()):
         status = {'on': True, 'off': False}.get(value)
-        GPIO.output(gpio_num, status)
+        wiringpi.digitalWrite(gpio_num, status)
 
 
 def speak(pin_number, status):
@@ -71,7 +68,7 @@ def send_action(pin_number, status):
     f1.start()
     f2.start()
     for GPIO_number in GPIOs:
-        GPIOs[GPIO_number]['status'] = GPIO.input(GPIO_number)
+        GPIOs[GPIO_number]['status'] = wiringpi.digitalRead(GPIO_number)
     data_for_template = {
         'pins': GPIOs,
         'temp': temp
