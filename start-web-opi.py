@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 import wiringpi
 import os
 import threading
@@ -9,14 +9,14 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 app = Flask(__name__)
 
 DEFAULT_LISTEN_ADDR = '0.0.0.0'
-DEFAULT_LISTEN_PORT = 8080
+DEFAULT_LISTEN_PORT = 8081
 wiringpi.wiringPiSetup()
 
 GPIOs = {
     1: {'nome': 'GPIO 1', 'status': wiringpi.LOW},
     2: {'nome': 'GPIO 2', 'status': wiringpi.LOW},
-    11: {'nome': 'GPIO 11', 'status': wiringpi.LOW},
-    13: {'nome': 'GPIO 13', 'status': wiringpi.LOW},
+    3: {'nome': 'GPIO 3', 'status': wiringpi.LOW},
+    4: {'nome': 'GPIO 4', 'status': wiringpi.LOW},
     15: {'nome': 'GPIO 15', 'status': wiringpi.LOW},
     22: {'nome': 'GPIO 22', 'status': wiringpi.LOW}
 }
@@ -69,6 +69,17 @@ def send_action(pin_number, status):
     f2.start()
     for GPIO_number in GPIOs:
         GPIOs[GPIO_number]['status'] = wiringpi.digitalRead(GPIO_number)
+    data_for_template = {
+        'pins': GPIOs,
+        'temp': temp
+    }
+    #return render_template('panel.html', **data_for_template)
+    # Redirect the user back to the main control panel
+    return redirect(url_for('panel'))  # Redirect to the main panel route
+
+@app.route('/')
+def panel():
+    """Route to render the control panel with the GPIO statuses."""
     data_for_template = {
         'pins': GPIOs,
         'temp': temp
