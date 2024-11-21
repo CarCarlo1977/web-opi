@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)  # Generates a random 24-byte key
 
 # A hardcoded user for simplicity (you could use a database for real apps)
-users = {'carlo': {'password': 'CarCarlo777@2024'}}
+users = {'carlo': {'password': 'Giosue@2017'}}
 
 
 # WiringPi setup

@@ -49,14 +49,14 @@
 							<div>
 								<a href="/3/off" class="btn btn-block btn-lg btn-danger" role="button" 
 								   onclick="return confirm('Are you sure you want to turn ON GPIO 3?');">
-									<i class="fas fa-toggle-on"></i> Turn ON GPIO 3 (CAMERA CCD) 
+									<i class="fas fa-toggle-on"></i> Turn ON CAMERA CCD
 								</a>
 							</div>
 						{% else %}
 							<div>
 								<a href="/3/on" class="btn btn-block btn-lg btn-success" role="button" 
 								   onclick="return confirm('Are you sure you want to turn OFF GPIO 3?');">
-									<i class="fas fa-toggle-off"></i> Turn OFF GPIO 3 (CAMERA CCD)
+									<i class="fas fa-toggle-off"></i> Turn OFF CAMERA CCD
 								</a>
 							</div>
 						{% endif %}
@@ -65,26 +65,28 @@
 							<div>
 								<a href="/4/off" class="btn btn-block btn-lg btn-danger" role="button" 
 								   onclick="return confirm('Are you sure you want to turn ON GPIO 4?');">
-									<i class="fas fa-toggle-on"></i> Turn ON GPIO 4 (MOUNT)
+									<i class="fas fa-toggle-on"></i> Turn ON MOUNT
 								</a>
 							</div>
 						{% else %}
 							<div>
 								<a href="/4/on" class="btn btn-block btn-lg btn-success" role="button" 
 								   onclick="return confirm('Are you sure you want to turn OFF GPIO 4?');">
-									<i class="fas fa-toggle-off"></i> Turn OFF GPIO 4 (MOUNT)
+									<i class="fas fa-toggle-off"></i> Turn OFF MOUNT
 								</a>
 							</div>
 						{% endif %}
 
-						<div>
-							<a href="/logout" class="btn btn-block btn-lg btn-default" role="button" >
-								<i class="fas fa-toggle-off"></i>Logout
-							</a>
-						</div>
+
 						<div>
 							<a href="/VNC" class="btn btn-block btn-lg btn-primary" role="button" target="_blank">
 								<i class="fas fa-toggle-off"></i>VNC
+							</a>
+						</div>
+
+						<div>
+							<a href="/logout" class="btn btn-block btn-lg btn-default" role="button" >
+								<i class="fas fa-toggle-off"></i>Logout
 							</a>
 						</div>
 						
@@ -97,14 +99,14 @@
 							</p>
 						
 							{% if pins[3].status == true %}
-								<p> GPIO 3 (CAMERA CCD) is now: <strong class="btn btn-block btn-lg btn-danger"> OFF </strong> </p>
+								<p> CAMERA CCD is now: <strong class="btn btn-block btn-lg btn-danger"> OFF </strong> </p>
 							{% else %}
-								<p> GPIO 3 (CAMERA CCD) is now: <strong class="btn btn-block btn-lg btn-success"> ON </strong> </p>
+								<p> CAMERA CCD is now: <strong class="btn btn-block btn-lg btn-success"> ON </strong> </p>
 							{% endif %}
 							{% if pins[4].status == true %}
-								<p> GPIO 4 (MOUNT) is now: <strong class="btn btn-block btn-lg btn-danger"> OFF </strong> </p>
+								<p> MOUNT is now: <strong class="btn btn-block btn-lg btn-danger"> OFF </strong> </p>
 							{% else %}
-								<p> GPIO 4 (MOUNT) is now: <strong  class="btn btn-block btn-lg btn-success"> ON </strong> </p>
+								<p> MOUNT is now: <strong  class="btn btn-block btn-lg btn-success"> ON </strong> </p>
 							{% endif %}
 							
 						</div>
