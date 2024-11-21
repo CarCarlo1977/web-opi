@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>WEB-OPI | Control Panel Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/panel.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/all.min.css') }}">
+  </head>
+
+  <body class="bg-light d-flex justify-content-center align-items-center vh-100">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+          <!-- Card container for login form -->
+          <div class="card shadow-lg">
+            <div class="card-header text-center bg-primary text-white">
+              <h4>Login</h4>
+            </div>
+            <div class="card-body">
+              <!-- Display error message if credentials are invalid -->
+              {% if error %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+              {% endif %}
+
+              <!-- Login Form -->
+              <form method="POST" action="{{ url_for('login') }}">
+                <div class="mb-3">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control" name="username" id="username" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" name="password" id="password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+              </form>
+            </div>
+            <div class="card-footer text-center">
+              <p class="mb-0">Forgot your password? <a href="#">Reset it here</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional: include Bootstrap JS for additional components like tooltips, popovers, etc. -->
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  </body>
+</html>
